@@ -1,0 +1,104 @@
+<script>
+    var lat;
+    var lng;
+    function findFunc() {
+        alert("We are searching for you!")
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                lat = position.coords.latitude;
+                lng = position.coords.longitude;
+                alert(lat +" " + lng);
+                document.getElementById("user_latitude").value = lat;
+                document.getElementById("user_longitude").value = lng; })
+    }
+</script>
+
+
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :login %>
+    <%= form.text_field :login %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fullname %>
+    <%= form.text_field :fullname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birthday %>
+    <%= form.text_field :birthday %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.text_field :confirm_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirm_password %>
+    <%= form.text_field :confirm_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role_id %>
+    <%= collection_select(:user, :role_id, Role.all, :id, :name, { prompt: true }) %>
+  </div>
+
+  <h2  onclick="findFunc()"> Find me! </h2>
+
+  <div id="lat" class="field" aria-placeholder="latitude" style="visibility: visible">
+    <%= form.text_field :latitude %>
+  </div>
+
+  <div id="lng" class="field" aria-placeholder="longitude" style="visibility: visible">
+    <%= form.text_field :longitude %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

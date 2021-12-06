@@ -1,0 +1,108 @@
+
+
+<p>
+  <strong>Login:</strong>
+  <%= @user.login %>
+</p>
+
+<p>
+  <strong>Fullname:</strong>
+  <%= @user.fullname %>
+</p>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @user.birthday %>
+</p>
+
+<p>
+  <strong>E­mail:</strong>
+  <%= @user.e­mail %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @user.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @user.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @user.state %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @user.country %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @user.zip %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @user.password %>
+</p>
+
+<p>
+  <strong>Confirm password:</strong>
+  <%= @user.confirm_password %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @user.role_id %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @user.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @user.longitude %>
+</p>
+
+<br>
+<div id="map" style="width:100%;height:600px;"></div>
+
+<script>
+    //var mylat;
+    //var mylng;
+
+    function myMap() {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                var mapOptions = {
+                    center: new google.maps.LatLng(<%= @user.latitude %>, <%= @user.longitude %>),
+                    zoom: 18
+                };
+
+                var mapCanvas = document.getElementById("map");
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+
+                exp1 = <%= @user.latitude %>
+                    exp2 = <%= @user.longitude %>
+
+                if(exp1 != null && exp2 != null)
+                {
+                    var marker = new google.maps.Marker({position: {lat: <%= @user.latitude %>, lng: <%= @user.longitude %>}, map: map});
+                }
+
+            }
+        );
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv5uUj7j1LSpdxB5iDz212Xd9XwL4BQZw&callback=myMap"></script>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
