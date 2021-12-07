@@ -1,0 +1,59 @@
+<script>
+    var lat;
+    var lng;
+    function findFunc() {
+        alert("We are searching for you!")
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                lat = position.coords.latitude;
+                lng = position.coords.longitude;
+                alert(lat +" " + lng);
+                document.getElementById("user_latitude").value = lat;
+                document.getElementById("user_longitude").value = lng; })
+    }
+</script>
+
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role_id %>
+    <%= collection_select(:user, :role_id, Role.all, :id, :name, { prompt: true }) %>
+  </div>
+
+  <h2  onclick="findFunc()"> Find me! </h2>
+
+  <div id="lat" class="field" aria-placeholder="latitude" style="visibility: visible">
+    <%= f.text_field :latitude %>
+  </div>
+
+  <div id="lng" class="field" aria-placeholder="longitude" style="visibility: visible">
+    <%= f.text_field :longitude %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

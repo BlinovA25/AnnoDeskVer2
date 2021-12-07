@@ -12,6 +12,7 @@
 #r3 = Role.create({ name: 'Admin', description: 'Can perform any CRUD operation on any resource' })
 
 #u1 = User.create({ fullname: 'Пользователь_1', email: 'user1@example.com', password: '123456', password_confirmation: '123456', role_id: r3.id })
+#u2 = User.create({ fullname: 'Пользователь_2', email: 'user2@example.com', password: '123456', password_confirmation: '123456', role_id: 2 })
 
 
 

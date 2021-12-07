@@ -1,8 +1,10 @@
 
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  #before_action :set_user, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  load_and_authorize_resource
+
   # GET /users or /users.json
   def index
     @users = User.all
@@ -15,17 +17,18 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    #@user = User.new
   end
 
   # GET /users/1/edit
   def edit
-
+    authorize! :edit, @item
   end
 
   # POST /users or /users.json
   def create
-    @user = User.new(user_params)
+    #@user = User.new(user_params)
+    @user.role_id = 3
 
     respond_to do |format|
       if @user.save
@@ -62,9 +65,9 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  #def set_user
+  #  @user = User.find(params[:id])
+  # end
 
     # Only allow a list of trusted parameters through.
     def user_params
