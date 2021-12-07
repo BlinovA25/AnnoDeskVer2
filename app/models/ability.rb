@@ -5,15 +5,30 @@ class Ability
 
   def initialize(user)
     return unless user.present?
-
-    user ||= User.new # Guest user
+    can :update, user
+    #user ||= User.new # Guest user
 
     if user.admin?
       can :manage, :all
-    else
-      can :read, :all
-    end
+    elsif user.seller?
+      can :read, User
+      can :read, Announcement
+      can :create, Announcement
+      can :update, Announcement do |announcement|
+        announcement.try(:user) == user
+      end
+      can :destroy, Announcement do |announcement|
+        announcement.try(:user) == user
+      end
+      can :update, User do |user|
+        user.try(:user) == user
+      end
 
+      #
+    elsif user.regular?
+      can :read, Announcement
+      can :read, User
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

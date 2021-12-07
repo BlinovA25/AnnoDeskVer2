@@ -39,9 +39,14 @@
         <% end %>
       </li>
 
+      <% if current_user&.admin? %>
+        <li style="font-size: 16px;">
+          <%= link_to "Roles", roles_path %>
+        </li>
+      <% end %>
+
+
     </ul>
   </div>
-
-
 
 </header>
