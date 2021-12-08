@@ -2,7 +2,7 @@
 
 class AnnouncementsController < ApplicationController
   #before_action :set_announcement, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   load_and_authorize_resource except: :index
 
   # GET /announcements or /announcements.json
@@ -12,9 +12,9 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements/1 or /announcements/1.json
   def show
-    # @users = User.all
-
     #@comments = Comment.all
+    #
+    @announcement = current_announcement.id
   end
 
   # GET /announcements/new

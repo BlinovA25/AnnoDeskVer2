@@ -1,0 +1,14 @@
+<%= form_with model: [ @announcement, @announcement.comments.build ] do |form| %>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_field :text %>
+  </div>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+

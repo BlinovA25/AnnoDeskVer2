@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :announcements
   resources :roles
 
   devise_for :users
@@ -18,9 +17,15 @@ Rails.application.routes.draw do
   authenticated :user do
     root to: 'announcements#index', as: :authenticated_root
   end
+
   root to: 'announcements#index'
 
+  resources :announcements do
+    resources :comments
+  end
+
   resources :users
+  resources :comments
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

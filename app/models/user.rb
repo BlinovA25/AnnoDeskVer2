@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_many :announcements, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
   #validates :name, presence: true
   before_save :assign_role
 
@@ -24,5 +26,6 @@ class User < ApplicationRecord
   def regular?
     role.name == 'Regular'
   end
+
 end
 

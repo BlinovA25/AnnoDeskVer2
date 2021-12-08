@@ -15,8 +15,43 @@
   <%= @announcement.user.fullname %>
 </p>
 
+
+
+
+
+<h2>Comments</h2>
+
+<div>
+  <% @announcement.comments.each do |comment| %>
+    <div style=" background-color: #BBBBBB">
+      <p style="margin-left: 5px;">
+        <strong>Author:</strong>
+          <%= comment.user.email %>
+      </p>
+
+      <p style="margin-left: 12px;">
+        <%= comment.text %>
+      </p>
+
+      <!--button style="margin-left: 5px;" id="DeleteComment" onclick="deleteComment('<-%= comment.id %>')">Delete comment</button-->
+      <p>
+        <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <!--a onclick="updateComment()">Edit</a-->
+        <!--%= link_to 'Edit', edit_comment_path(comment) %-->
+      </p>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+
+<p>Here you can add your comment:</p>
+<%= render 'comments/form' %>
+
 <% if can? :update, @announcement %>
-  <%= link_to 'Edit', edit_announcement_path(@announcement) %> |
+  <%= button_to 'Edit', edit_announcement_path(@announcement) %>
 <% end %>
 
-<%= link_to 'Back', announcements_path %>

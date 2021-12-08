@@ -83,4 +83,5 @@ production:
   <<: *default
   database: AnnoDeskVer2_production
   username: AnnoDeskVer2
-  password: <%= ENV['ANNODESKVER2_DATABASE_PASSWORD'] %>
+  password: password
+  # <!%= ENV['ANNODESKVER2_DATABASE_PASSWORD'] %>
